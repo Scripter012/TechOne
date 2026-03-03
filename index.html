@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechOne Mayoreo — Revende y Gana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f8f6f1;
+      --accent: #00e5a0;
+      --accent2: #ff3f3f;
+      --mid: #1a1a1a;
+      --border: rgba(255,255,255,0.08);
+      --card-bg: #111111;
+      --tag: #1e1e1e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ---- ANNOUNCEMENT BAR ---- */
+    .announce {
+      background: var(--accent);
+      color: var(--black);
+      text-align: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 10px;
+      animation: slide 20s linear infinite;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .announce-inner {
+      display: inline-block;
+      animation: ticker 18s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(40vw); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(248,246,241,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .cart-btn {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .cart-btn:hover { transform: scale(1.05); background: #00ffb3; }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 82vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-left {
+      padding: 6rem 3rem 4rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--tag);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      width: fit-content;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 1.8s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.6rem;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(248,246,241,0.55);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--mid);
+    }
+
+    .hero-img-grid {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .hero-img-cell {
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s ease;
+    }
+    .hero-img-cell:hover { transform: scale(1.04); z-index: 1; }
+
+    .hero-img-cell::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(0,229,160,0.15));
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--accent);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 100px;
+      z-index: 3;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(248,246,241,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    /* ---- SECTION HEADING ---- */
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      padding: 0 5rem;
+    }
+    .section-head h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .section-head h2 span { color: var(--accent); }
+    .section-head a {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .section-head a:hover { opacity: 0.7; }
+
+    /* ---- PACKS SECTION ---- */
+    .section { padding: 6rem 0; }
+    .section-inner { padding: 0 5rem; }
+
+    .packs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .pack-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .pack-card:hover {
+      border-color: rgba(0,229,160,0.4);
+      transform: translateY(-6px);
+    }
+
+    .pack-img {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #1a1a1a, #222);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .pack-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 20%, rgba(0,229,160,0.1), transparent 60%);
+    }
+
+    .pack-info {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .pack-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .pack-price {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .pack-desc {
+      font-size: 0.8rem;
+      color: rgba(248,246,241,0.45);
+      line-height: 1.5;
+    }
+    .pack-add {
+      margin-top: auto;
+      padding: 10px;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    .pack-add:hover { background: #00ffb3; }
+
+    .badge-hot {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent2);
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+    .badge-sale {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: var(--black);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      z-index: 2;
+    }
+
+    /* ---- PRODUCTS GRID ---- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.2rem;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      border-color: rgba(0,229,160,0.35);
+      transform: translateY(-4px);
+    }
+
+    .product-img {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #161616, #1e1e1e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-info {
+      padding: 0.9rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .product-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(248,246,241,0.85);
+      line-height: 1.3;
+    }
+    .product-price {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+    }
+    .product-old-price {
+      font-size: 0.75rem;
+      color: rgba(248,246,241,0.35);
+      text-decoration: line-through;
+    }
+    .product-add {
+      margin: 0.8rem 0.9rem 0.9rem;
+      padding: 9px;
+      background: transparent;
+      border: 1px solid rgba(0,229,160,0.4);
+      color: var(--accent);
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+    .product-add:hover {
+      background: var(--accent);
+      color: var(--black);
+      border-color: var(--accent);
+    }
+
+    /* ---- PHONES SECTION ---- */
+    .phones-section {
+      background: var(--mid);
+      padding: 6rem 5rem;
+    }
+    .phones-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .phone-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .phone-card:hover {
+      border-color: rgba(0,229,160,0.4);
+      transform: translateY(-4px);
+    }
+    .phone-img {
+      background: linear-gradient(160deg, #1a1a1a, #111);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      min-height: 220px;
+      position: relative;
+    }
+    .phone-info {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+    .phone-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: rgba(0,229,160,0.1);
+      border: 1px solid rgba(0,229,160,0.25);
+      padding: 4px 10px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+    .phone-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+    }
+    .phone-price {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .phone-desc {
+      font-size: 0.8rem;
+      color: rgba(248,246,241,0.4);
+      line-height: 1.6;
+    }
+    .phone-btn {
+      padding: 10px 22px;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 100px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      width: fit-content;
+      transition: all 0.2s;
+    }
+    .phone-btn:hover { background: #00ffb3; }
+
+    /* ---- PROMO BANNER ---- */
+    .promo-banner {
+      padding: 0 5rem;
+      margin: 6rem 0;
+    }
+    .promo-inner {
+      background: var(--accent);
+      border-radius: 24px;
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .promo-inner::before {
+      content: '✦';
+      position: absolute;
+      right: 12rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14rem;
+      color: rgba(0,0,0,0.06);
+      pointer-events: none;
+      font-family: 'Syne', sans-serif;
+    }
+    .promo-text h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      color: var(--black);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+    }
+    .promo-text p {
+      color: rgba(10,10,10,0.6);
+      font-size: 1rem;
+    }
+    .promo-btn {
+      background: var(--black);
+      color: var(--accent);
+      border: none;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .promo-btn:hover { transform: scale(1.05); }
+
+    /* ---- FEATURES ROW ---- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-item {
+      padding: 2.5rem 3rem;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .feature-item:last-child { border-right: none; }
+    .feature-icon { font-size: 1.8rem; }
+    .feature-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .feature-desc {
+      font-size: 0.8rem;
+      color: rgba(248,246,241,0.45);
+      line-height: 1.5;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--mid);
+      border-top: 1px solid var(--border);
+      padding: 4rem 5rem 2rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .logo { font-size: 1.6rem; display: block; margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(248,246,241,0.4);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(248,246,241,0.5);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col a {
+      color: rgba(248,246,241,0.7);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: rgba(248,246,241,0.3);
+    }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      color: rgba(248,246,241,0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--accent); }
+
+    /* ---- SCROLLBAR ---- */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ---- ANIMATIONS ---- */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUpAnim 0.6s ease forwards;
+    }
+
+    @keyframes fadeUpAnim {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* stagger delays for grid children */
+    .packs-grid .pack-card:nth-child(1) { animation-delay: 0.05s; }
+    .packs-grid .pack-card:nth-child(2) { animation-delay: 0.1s; }
+    .packs-grid .pack-card:nth-child(3) { animation-delay: 0.15s; }
+    .packs-grid .pack-card:nth-child(4) { animation-delay: 0.2s; }
+    .packs-grid .pack-card:nth-child(5) { animation-delay: 0.25s; }
+    .packs-grid .pack-card:nth-child(6) { animation-delay: 0.3s; }
+    .packs-grid .pack-card:nth-child(7) { animation-delay: 0.35s; }
+    .packs-grid .pack-card:nth-child(8) { animation-delay: 0.4s; }
+    .products-grid .product-card:nth-child(1)  { animation-delay: 0.05s; }
+    .products-grid .product-card:nth-child(2)  { animation-delay: 0.1s; }
+    .products-grid .product-card:nth-child(3)  { animation-delay: 0.15s; }
+    .products-grid .product-card:nth-child(4)  { animation-delay: 0.2s; }
+    .products-grid .product-card:nth-child(5)  { animation-delay: 0.25s; }
+    .products-grid .product-card:nth-child(6)  { animation-delay: 0.3s; }
+    .products-grid .product-card:nth-child(7)  { animation-delay: 0.35s; }
+    .products-grid .product-card:nth-child(8)  { animation-delay: 0.4s; }
+    .products-grid .product-card:nth-child(9)  { animation-delay: 0.45s; }
+    .products-grid .product-card:nth-child(10) { animation-delay: 0.5s; }
+    .products-grid .product-card:nth-child(11) { animation-delay: 0.55s; }
+    .products-grid .product-card:nth-child(12) { animation-delay: 0.6s; }
+    .products-grid .product-card:nth-child(13) { animation-delay: 0.65s; }
+    .products-grid .product-card:nth-child(14) { animation-delay: 0.7s; }
+    .products-grid .product-card:nth-child(15) { animation-delay: 0.75s; }
+    .products-grid .product-card:nth-child(16) { animation-delay: 0.8s; }
+    .products-grid .product-card:nth-child(17) { animation-delay: 0.85s; }
+    .products-grid .product-card:nth-child(18) { animation-delay: 0.9s; }
+    .products-grid .product-card:nth-child(19) { animation-delay: 0.95s; }
+    .products-grid .product-card:nth-child(20) { animation-delay: 1s; }
+
+    /* ---- HAMBURGER MENU ---- */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.98);
+      z-index: 200;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mobile-menu-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .mobile-wa {
+      margin-top: 1rem;
+      background: var(--accent);
+      color: var(--black) !important;
+      font-size: 1rem !important;
+      padding: 14px 32px;
+      border-radius: 100px;
+    }
+
+    /* ---- TABLET: 768px – 1100px ---- */
+    @media (max-width: 1100px) {
+      .packs-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { display: none; }
+      .hero-left { padding: 5rem 3rem 4rem; }
+      .section-head { padding: 0 2rem; }
+      .section-inner { padding: 0 2rem; }
+      .promo-banner { padding: 0 2rem; }
+      footer { padding: 3rem 2rem 2rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .features { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ---- MOBILE: up to 767px ---- */
+    @media (max-width: 767px) {
+      nav { height: 56px; padding: 0 1rem; }
+      .logo { font-size: 1.2rem; }
+      .cart-btn { font-size: 0.7rem; padding: 7px 14px; }
+
+      .announce { font-size: 0.65rem; padding: 8px; }
+
+      .hero-left { padding: 3.5rem 1.2rem 3rem; }
+      .hero h1 { font-size: 2.6rem; margin-bottom: 1.2rem; }
+      .hero p { font-size: 0.92rem; }
+      .hero-ctas { flex-direction: column; gap: 0.8rem; }
+      .btn-primary, .btn-ghost { text-align: center; width: 100%; padding: 14px 20px; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .stat-num { font-size: 1.4rem; }
+
+      .features { grid-template-columns: 1fr 1fr; }
+      .feature-item { padding: 1.5rem 1.2rem; }
+      .feature-icon { font-size: 1.4rem; }
+      .feature-title { font-size: 0.85rem; }
+      .feature-desc { font-size: 0.72rem; }
+
+      .section { padding: 3.5rem 0; }
+      .section-head { padding: 0 1.2rem; margin-bottom: 1.5rem; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+      .section-head h2 { font-size: 1.8rem; }
+      .section-inner { padding: 0 1.2rem; }
+
+      .packs-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .pack-img { aspect-ratio: 16/9; font-size: 3rem; }
+
+      .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+      .product-img { aspect-ratio: 1; }
+      .product-name { font-size: 0.75rem; }
+      .product-price { font-size: 0.9rem; }
+      .product-add { font-size: 0.65rem; padding: 8px; margin: 0.5rem 0.6rem 0.6rem; }
+
+      .promo-banner { padding: 0 1.2rem; margin: 3rem 0; }
+      .promo-inner { padding: 2rem 1.5rem; grid-template-columns: 1fr; gap: 1.5rem; }
+      .promo-inner::before { display: none; }
+      .promo-text h3 { font-size: 1.5rem; }
+      .promo-btn { width: 100%; text-align: center; padding: 14px; }
+
+      footer { padding: 2.5rem 1.2rem 1.5rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+
+      /* Contact section */
+      #contacto { padding: 4rem 1.2rem !important; }
+      #contacto > div > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    /* ---- SMALL MOBILE: up to 380px ---- */
+    @media (max-width: 380px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.1rem; }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announce">
+  <span class="announce-inner">
+    TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp; TechOne &nbsp;•&nbsp;
+  </span>
+</div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#" onclick="document.getElementById('mobileMenu').classList.remove('open')">Inicio</a>
+  <a href="#paquetes" onclick="document.getElementById('mobileMenu').classList.remove('open')">Paquetes</a>
+  <a href="#productos" onclick="document.getElementById('mobileMenu').classList.remove('open')">Productos</a>
+  <a href="#contacto" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contacto</a>
+  <a href="https://wa.me/529851137498?text=Hola,%20me%20interesa%20hacer%20un%20pedido%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" class="mobile-wa">💬 Escribir por WhatsApp</a>
+</div>
+
+<!-- Nav -->
+<nav>
+  <a class="logo" href="#">Tech<span>One</span></a>
+  <ul class="nav-links">
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="cart-btn" href="https://wa.me/529851137498?text=Hola,%20me%20interesa%20hacer%20un%20pedido%20de%20mayoreo%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" style="text-decoration:none;">💬 WhatsApp</a>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">🟢 Mayoreo activo — Envíos diarios</div>
+    <h1>
+      Revende.<br>
+      <em>Gana más.</em>
+      Cresce.
+    </h1>
+    <p>Accesorios premium al mejor precio mayoreo. AirPods, Apple Watch, Beats, Galaxy Buds y más. Packs desde $1,500 con envío gratis a todo México.</p>
+    <div class="hero-ctas">
+      <a href="#paquetes" class="btn-primary">Ver Paquetes →</a>
+      <a href="https://wa.me/529851137498?text=Hola,%20me%20interesa%20el%20mayoreo%20%F0%9F%9B%8D%EF%B8%8F" class="btn-ghost" target="_blank">💬 Contactar por WhatsApp</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">1K+</div>
+        <div class="stat-label">Reseñas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Entrega</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3sem</div>
+        <div class="stat-label">Garantía</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">MX🇲🇽</div>
+        <div class="stat-label">Cobertura</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-grid">
+      <div class="hero-img-cell"><img src="airpods-2.png" alt="AirPods" style="width:70%;height:70%;object-fit:contain;"></div>
+      <div class="hero-img-cell"><img src="apple-watch-nike-s10.png" alt="Apple Watch" style="width:70%;height:70%;object-fit:contain;"></div>
+      <div class="hero-img-cell"><img src="magsafe-case.png" alt="Accesorios" style="width:70%;height:70%;object-fit:contain;"></div>
+      <div class="hero-img-cell"><img src="jbl-flip-6.png" alt="Bocina" style="width:70%;height:70%;object-fit:contain;"></div>
+    </div>
+    <div class="hero-badge">⚡ Hot Sale</div>
+  </div>
+</section>
+
+<!-- Features -->
+<div class="features">
+  <div class="feature-item">
+    <div class="feature-icon">🚀</div>
+    <div class="feature-title">Envío Gratis</div>
+    <div class="feature-desc">En compras mayores a $1,500. Enviamos a todo México en 48 hrs.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">🛡</div>
+    <div class="feature-title">Garantía Real</div>
+    <div class="feature-desc">Hasta 3 semanas de garantía en todos los productos.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">💰</div>
+    <div class="feature-title">Revende y Gana</div>
+    <div class="feature-desc">Precios de mayoreo diseñados para que generes utilidad desde el día 1.</div>
+  </div>
+  <div class="feature-item">
+    <div class="feature-icon">⭐</div>
+    <div class="feature-title">+1,000 Reseñas</div>
+    <div class="feature-desc">Cientos de revendedores felices en Instagram y redes sociales.</div>
+  </div>
+</div>
+
+<!-- Paquetes -->
+<section class="section" id="paquetes">
+  <div class="section-head fade-up">
+    <h2>¡Revende por <span>Packs!</span></h2>
+    <a href="#">Ver todos →</a>
+  </div>
+  <div class="section-inner">
+    <div class="packs-grid">
+
+      <div class="pack-card fade-up">
+        <div class="pack-img">
+          <img src="pack-airpods-pro.png" alt="PACK 12 AirPods Pro" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="pack-info">
+          <div class="pack-name">PACK 12 AirPods Pro</div>
+          <div class="pack-price">$1,700.00</div>
+          <div class="pack-desc">12 piezas de AirPods Pro para reventa rápida y garantizada.</div>
+          <a class="pack-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20el%20Pack%2012%20AirPods%20Pro%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar por WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="pack-card fade-up">
+        <div class="pack-img">
+          <div class="badge-hot">🔥 Más Vendido</div>
+          <img src="pack-mas-vendido.png" alt="Pack Más Vendido" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="pack-info">
+          <div class="pack-name">Pack Más Vendido</div>
+          <div class="pack-price">$3,000.00</div>
+          <div class="pack-desc">El pack que más retorno genera. Mix de productos top-sellers.</div>
+          <a class="pack-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20el%20Pack%20M%C3%A1s%20Vendido%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar por WhatsApp</a>
+        </div>
+      </div>
+
+      <div class="pack-card fade-up">
+        <div class="pack-img">
+          <img src="mystery-box.png" alt="Mystery Box" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="pack-info">
+          <div class="pack-name">Mystery Box</div>
+          <div class="pack-price">$1,700.00</div>
+          <div class="pack-desc">¿Te atreves? Caja sorpresa con productos de alto valor.</div>
+          <a class="pack-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20la%20Mystery%20Box%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar por WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Promo Banner -->
+<div class="promo-banner fade-up">
+  <div class="promo-inner">
+    <div class="promo-text">
+      <h3>Envío Gratis en tu primera compra de $1,500+</h3>
+      <p>Sin excusas para empezar tu negocio. Compra hoy, vende mañana. 🇲🇽</p>
+    </div>
+    <a href="https://wa.me/529851137498?text=Hola,%20quiero%20aprovechar%20el%20env%C3%ADo%20gratis%20%F0%9F%9B%8D%EF%B8%8F" class="promo-btn" target="_blank" style="text-decoration:none;">Comprar por WhatsApp →</a>
+  </div>
+</div>
+
+<!-- Productos -->
+<section class="section" id="productos">
+  <div class="section-head fade-up">
+    <h2>Nuestros <span>Productos</span></h2>
+    <a href="#">Ver catálogo →</a>
+  </div>
+  <div class="section-inner">
+    <div class="products-grid">
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 2</div>
+          <div class="product-price">$300.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 2 Pro (sin cancelación)</div>
+          <div class="product-price">$350.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Alta Calidad</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 2 Pro GEN (Cancelación real)</div>
+          <div class="product-price">$400.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 3 Pro (Cancelación + Traductor)</div>
+          <div class="product-price">$450.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 3-GEN</div>
+          <div class="product-price">$300.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods 4-GEN (Cancelación real)</div>
+          <div class="product-price">$550.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">AirPods Max</div>
+          <div class="product-price">$350.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="apple-watch-nike-s10.png" alt="Apple Watch Nike Series 10" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Apple Watch Nike Series 10</div>
+          <div class="product-price">$600.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="apple-watch-nike-s10.png" alt="Apple Watch Nike Series 10" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Apple Watch Ultra</div>
+          <div class="product-price">$600.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Beats fit pro</div>
+          <div class="product-price">$330.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Beats Studio Pro</div>
+          <div class="product-price">$400.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="airpods-2.png" alt="AirPods 2" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Galaxy Buds 2 Pro</div>
+          <div class="product-price">$270.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="jbl-flip-6.png" alt="JBL Flip 6" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">JBL Flip 6</div>
+          <div class="product-price">$350.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="jbl-flip-6.png" alt="JBL Flip 6" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Marshall Major IV</div>
+          <div class="product-price">$300.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="airtag.png" alt="GPS Localizador AirTag" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">GPS Localizador AirTag</div>
+          <div class="product-price">$130.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><div class="badge-sale">Oferta</div><img src="bateria-magsafe.png" alt="Batería MagSafe" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Batería MagSafe</div>
+          <div class="product-price">$200.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="set-cubo-cable-cc.png" alt="C-C Set cubo y cable" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">C-C Set cubo y cable</div>
+          <div class="product-price">$100.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="magsafe-case.png" alt="MagSafe Case" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">MagSafe Case</div>
+          <div class="product-price">$70.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="cartera-magsafe.png" alt="Cartera MagSafe Apple" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">Cartera MagSafe Apple</div>
+          <div class="product-price">$150.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+      <div class="product-card fade-up">
+        <div class="product-img" style="position:relative;"><img src="earpods.png" alt="EarPods" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></div>
+        <div class="product-info">
+          <div class="product-name">EarPods</div>
+          <div class="product-price">$80.00</div>
+        </div>
+        <a class="product-add" href="https://wa.me/529851137498?text=Hola,%20quiero%20comprar%20este%20producto%20%F0%9F%9B%8D%EF%B8%8F" target="_blank">🛍️ Comprar</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Privacy Modal -->
+<div id="privacy-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; overflow-y:auto; padding:2rem;">
+  <div style="max-width:700px; margin:2rem auto; background:#111; border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:3rem; position:relative;">
+    <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute;top:1.5rem;right:1.5rem;background:rgba(255,255,255,0.1);border:none;color:#f8f6f1;font-size:1.2rem;width:36px;height:36px;border-radius:50%;cursor:pointer;font-family:'Syne',sans-serif;">✕</button>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;letter-spacing:-0.03em;margin-bottom:0.5rem;">Política de Privacidad<span style="color:#00e5a0;">.</span></h2>
+    <p style="font-size:0.78rem;color:rgba(248,246,241,0.4);margin-bottom:2rem;text-transform:uppercase;letter-spacing:0.08em;">Última actualización: Marzo 2026</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">1. Información que recopilamos</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;margin-bottom:1.5rem;">Al contactarnos a través de WhatsApp o redes sociales, podemos recopilar tu nombre, número de teléfono, dirección de envío y datos necesarios para procesar tu pedido. No recopilamos información de pago directamente; los pagos se acuerdan mediante métodos seguros acordados con el cliente.</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">2. Uso de la información</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;margin-bottom:1.5rem;">Usamos tus datos únicamente para procesar y enviar tu pedido, así como para comunicarnos contigo en caso de alguna novedad con tu compra. No vendemos, cedemos ni compartimos tu información personal con terceros.</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">3. Proceso de compra</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;margin-bottom:1.5rem;">Todas las compras se realizan a través de WhatsApp. Al hacer clic en "Comprar por WhatsApp", serás redirigido a una conversación con nuestro equipo donde podrás confirmar tu pedido, elegir productos, acordar el pago y proporcionar tu dirección de envío. El pedido se confirma una vez recibido el pago.</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">4. Garantía</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;margin-bottom:1.5rem;">Todos nuestros productos cuentan con garantía de hasta 3 semanas a partir de la fecha de entrega. En caso de defecto de fábrica, realizamos cambio o devolución según el caso. La garantía no cubre daños por mal uso.</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">5. Envíos</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;margin-bottom:1.5rem;">Enviamos a todo México. El envío es gratis en compras mayores a $1,500 MXN. Los tiempos de entrega son de 2 a 5 días hábiles dependiendo de la ubicación. Proporcionamos número de rastreo una vez despachado el paquete.</p>
+
+    <h3 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:#00e5a0;margin-bottom:0.6rem;">6. Contacto</h3>
+    <p style="font-size:0.88rem;color:rgba(248,246,241,0.65);line-height:1.8;">Para cualquier duda sobre tu privacidad o tu pedido, contáctanos directamente por WhatsApp al +52 985 113 7498. Atendemos de lunes a sábado de 9am a 8pm.</p>
+  </div>
+</div>
+
+<!-- Contact Section -->
+<section id="contacto" style="padding:6rem 5rem; background:#111111; border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:900px; margin:0 auto;">
+    <div class="fade-up" style="margin-bottom:3rem;">
+      <p style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#00e5a0;margin-bottom:0.8rem;">¿Tienes dudas?</p>
+      <h2 style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2.5rem,4vw,4rem);letter-spacing:-0.04em;line-height:1;">Contáctanos<span style="color:#00e5a0;">.</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;" class="fade-up">
+
+      <!-- Instagram Card -->
+      <a href="https://www.instagram.com/techone.mx/" target="_blank" style="text-decoration:none;">
+        <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:2.5rem;display:flex;align-items:center;gap:1.5rem;transition:border-color 0.3s,transform 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(0,229,160,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
+          <div style="width:56px;height:56px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">📸</div>
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(248,246,241,0.4);margin-bottom:0.3rem;">Instagram</p>
+            <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f8f6f1;">@techone.mx</p>
+            <p style="font-size:0.78rem;color:rgba(248,246,241,0.4);margin-top:0.2rem;">Síguenos y ve nuestras reseñas</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- WhatsApp Card -->
+      <a href="https://wa.me/529851137498?text=Hola,%20me%20interesa%20hacer%20un%20pedido%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" style="text-decoration:none;">
+        <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:2.5rem;display:flex;align-items:center;gap:1.5rem;transition:border-color 0.3s,transform 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(0,229,160,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
+          <div style="width:56px;height:56px;background:#25d366;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">💬</div>
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(248,246,241,0.4);margin-bottom:0.3rem;">WhatsApp</p>
+            <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f8f6f1;">+52 985 113 7498</p>
+            <p style="font-size:0.78rem;color:rgba(248,246,241,0.4);margin-top:0.2rem;">Escríbenos para tu pedido</p>
+          </div>
+        </div>
+      </a>
+
+      <!-- Email Card -->
+      <a href="/cdn-cgi/l/email-protection#e39786808b8c8d86cd8e9bcd908c938c919786a3848e828a8fcd808c8e" style="text-decoration:none;grid-column:1/-1;">
+        <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:2rem 2.5rem;display:flex;align-items:center;gap:1.5rem;transition:border-color 0.3s,transform 0.3s;cursor:pointer;" onmouseover="this.style.borderColor='rgba(0,229,160,0.4)';this.style.transform='translateY(-4px)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)';this.style.transform='translateY(0)'">
+          <div style="width:56px;height:56px;background:#444;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">✉️</div>
+          <div>
+            <p style="font-family:'Syne',sans-serif;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:rgba(248,246,241,0.4);margin-bottom:0.3rem;">Correo Electrónico</p>
+            <p style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.1rem;color:#f8f6f1;"><span class="__cf_email__" data-cfemail="7d09181e15121318531005530e120d120f09183d1a101c1411531e1210">[email&#160;protected]</span></p>
+            <p style="font-size:0.78rem;color:rgba(248,246,241,0.4);margin-top:0.2rem;">Soporte y dudas generales</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="logo" href="#">Tech<span style="color:var(--accent)">One</span></a>
+      <p>La plataforma de mayoreo #1 en México para revendedores de accesorios tech. Gana desde el primer pedido.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tienda</h4>
+      <ul>
+        <li><a href="#paquetes">Paquetes</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#" onclick="document.getElementById('privacy-modal').style.display='block'; return false;">Política de privacidad</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://www.instagram.com/techone.mx/" target="_blank">📸 Instagram</a></li>
+        <li><a href="https://wa.me/529851137498" target="_blank">💬 WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 TechOne Mayoreo. Todos los derechos reservados.</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/techone.mx/" target="_blank">Instagram</a>
+      <a href="https://wa.me/529851137498" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="fals
