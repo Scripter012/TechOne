@@ -106,21 +106,7 @@
       pointer-events: none;
     }
 
-    .error-code {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(7rem, 20vw, 14rem);
-      line-height: 1;
-      letter-spacing: -0.06em;
-      color: rgba(248,246,241,0.04);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      white-space: nowrap;
-      z-index: 0;
-    }
+
 
     .content {
       position: relative;
@@ -204,6 +190,61 @@
     }
     .social-links a:hover { color: var(--accent); }
 
+
+    /* ---- COUNTDOWN ---- */
+    .countdown {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cd-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+      min-width: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cd-block::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,160,0.05), transparent);
+    }
+    .cd-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3rem);
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      line-height: 1;
+      position: relative;
+    }
+    .cd-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(248,246,241,0.35);
+      position: relative;
+    }
+    .launched {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+    @media (max-width: 480px) {
+      .cd-block { min-width: 70px; padding: 1rem 1.1rem; }
+    }
     @media (max-width: 600px) {
       nav { padding: 0 1.2rem; }
       footer { padding: 1rem 1.2rem; flex-direction: column; gap: 0.6rem; text-align: center; }
@@ -224,11 +265,17 @@
 </nav>
 
 <main>
-  <div class="error-code">101</div>
+  
   <div class="content">
-    <div class="tag">Página cerrada temporalmente</div>
-    <h1>Cerrado<br><em>temporalmente.</em></h1>
-    <p>Esta página se encuentra cerrada temporalmente. Regresa pronto.</p>
+    <div class="tag">Volvemos el 15 de Mayo</div>
+    <h1>Estamos<br><em>preparando algo.</em></h1>
+    <p>Contamos los segundos para el gran lanzamiento de TechOne.</p>
+    <div class="countdown" id="countdown">
+      <div class="cd-block"><div class="cd-num" id="cd-dias">00</div><div class="cd-label">Días</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-horas">00</div><div class="cd-label">Horas</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-mins">00</div><div class="cd-label">Minutos</div></div>
+      <div class="cd-block"><div class="cd-num" id="cd-segs">00</div><div class="cd-label">Segundos</div></div>
+    </div>
   </div>
 </main>
 
@@ -240,5 +287,34 @@
   </div>
 </footer>
 
+
+<script>
+  const target = new Date('2026-05-15T12:00:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now = new Date();
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<div class="launched">🚀 ¡Ya estamos aquí!</div>';
+      return;
+    }
+
+    const dias  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins  = Math.floor((diff / (1000 * 60)) % 60);
+    const segs  = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('cd-dias').textContent  = pad(dias);
+    document.getElementById('cd-horas').textContent = pad(horas);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-segs').textContent  = pad(segs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
 </body>
 </html>
