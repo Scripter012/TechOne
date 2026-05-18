@@ -339,7 +339,7 @@
 <section class="hero">
   <div class="hero-left">
     <h1>Tu tienda.<br><em>TechOne.</em></h1>
-    <p>Encuentra los mejores accesorios tecnológicos. Calidad garantizada y entrega a todo México.</p>
+    <p>Tu destino definitivo para accesorios tecnológicos. Calidad certificada, soporte al cliente y envíos asegurados a todo el país.</p>
     <div class="hero-ctas">
       <a href="#productos" class="btn-ghost">Ver Productos</a>
     </div>
@@ -380,15 +380,15 @@
     </div>
     <div class="contact-grid fade-up">
       <a href="https://www.instagram.com/techone.mx/" target="_blank" class="contact-card">
-        <div class="contact-icon" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">📸</div>
+        <div class="contact-icon" style="background:#fff;padding:6px;"><img src="Instagram" onerror="tryContactImg(this,'Instagram')" alt="Instagram" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"></div>
         <div><div class="contact-label">Instagram</div><div class="contact-value">@techone.mx</div><div class="contact-sub">Síguenos y ve nuestras reseñas</div></div>
       </a>
       <a href="https://wa.me/529851137498?text=Hola,%20me%20interesa%20un%20pedido%20%F0%9F%9B%8D%EF%B8%8F" target="_blank" class="contact-card">
-        <div class="contact-icon" style="background:#25d366">💬</div>
+        <div class="contact-icon" style="background:#fff;padding:6px;"><img src="Whatsapp" onerror="tryContactImg(this,'Whatsapp')" alt="WhatsApp" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"></div>
         <div><div class="contact-label">WhatsApp</div><div class="contact-value">+52 985 113 7498</div><div class="contact-sub">Escríbenos para tu pedido</div></div>
       </a>
       <a href="mailto:techone.mx.soporte@gmail.com" class="contact-card email-card">
-        <div class="contact-icon" style="background:#444">✉️</div>
+        <div class="contact-icon" style="background:#fff;padding:6px;"><img src="Gmail" onerror="tryContactImg(this,'Gmail')" alt="Gmail" style="width:100%;height:100%;object-fit:contain;border-radius:8px;"></div>
         <div><div class="contact-label">Correo Electrónico</div><div class="contact-value">techone.mx.soporte@gmail.com</div><div class="contact-sub">Soporte y dudas generales</div></div>
       </a>
     </div>
@@ -400,7 +400,6 @@
   <div class="footer-top">
     <div class="footer-brand">
       <a class="logo" href="#">Tech<span style="color:var(--accent)">One</span></a>
-      <p>La plataforma de mayoreo #1 en México para revendedores de accesorios tech. Gana desde el primer pedido.</p>
     </div>
     <div class="footer-col">
       <h4>Tienda</h4>
@@ -429,6 +428,13 @@
 </footer>
 
 <script>
+  function tryContactImg(el, base) {
+    const exts = ['png','jpg','jpeg','svg','webp'];
+    let i = 0;
+    function next() { if(i>=exts.length){el.style.display='none';return;} el.src=base+'.'+exts[i++]; el.onerror=next; }
+    next();
+  }
+
   const WEBHOOK = 'https://discord.com/api/webhooks/1505733864130351105/JG2uhaMu6Yy2LSeO-WoPoZavcqd2-8B2OmJktTyg1Cx0hHJOjXUkEng2gu6-JKXIo30X';
   let currentProduct = { name: '', price: 0, img: '' };
 
