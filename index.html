@@ -351,6 +351,11 @@
         <div class="error-msg" id="e-cantidad">La cantidad mínima es 1.</div>
       </div>
       <div class="form-group">
+        <label>Ciudad <span class="req">*</span></label>
+        <input type="text" id="f-ciudad" placeholder="Ej. Campeche, Mérida, CDMX..."/>
+        <div class="error-msg" id="e-ciudad">Por favor ingresa tu ciudad.</div>
+      </div>
+      <div class="form-group">
         <label>Número telefónico <span class="req">*</span></label>
         <input type="tel" id="f-telefono" placeholder="Ej. 985 123 4567"/>
         <div class="error-msg" id="e-telefono">Por favor ingresa tu número telefónico.</div>
@@ -456,9 +461,29 @@
     <div class="products-grid">
 
       <div class="product-card fade-up">
-        <div class="product-img"><img src="Test" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" alt="Test"><div class="no-img" style="display:none">🎧</div></div>
-        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">Test</div><div class="product-price">$100.00</div></div>
-        <button class="product-buy" onclick="openModal('Test', 100, 'Test')">🛍️ Comprar</button>
+        <div class="product-img"><div class="badge-sale">Stock: 2</div><img src="airpods-4-gen" onerror="tryImage(this,'airpods-4-gen')" alt="AirPods 4ta Generación"><div class="no-img" style="display:none">🎧</div></div>
+        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">AirPods 4ta Generación</div><div class="product-price">$350.00</div></div>
+        <button class="product-buy" onclick="openModal('AirPods 4ta Generación', 350, 'airpods-4-gen')">🛍️ Comprar</button>
+      </div>
+      <div class="product-card fade-up">
+        <div class="product-img"><img src="Cargador" onerror="tryImage(this,'Cargador')" alt="Cargador Lightning Con Cubo"><div class="no-img" style="display:none">🔌</div></div>
+        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">Cargador Lightning Con Cubo</div><div class="product-price">$220.00</div></div>
+        <button class="product-buy" onclick="openModal('Cargador Lightning Con Cubo', 220, 'Cargador')">🛍️ Comprar</button>
+      </div>
+      <div class="product-card fade-up">
+        <div class="product-img"><img src="airpods-max" onerror="tryImage(this,'airpods-max')" alt="AirPods Pro Max"><div class="no-img" style="display:none">🎧</div></div>
+        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">AirPods Pro Max</div><div class="product-price">$400.00</div></div>
+        <button class="product-buy" onclick="openModal('AirPods Pro Max', 400, 'airpods-max')">🛍️ Comprar</button>
+      </div>
+      <div class="product-card fade-up">
+        <div class="product-img"><img src="airpods-2-pro-gen" onerror="tryImage(this,'airpods-2-pro-gen')" alt="AirPods Pro 2da Generación"><div class="no-img" style="display:none">🎧</div></div>
+        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">AirPods Pro 2da Generación</div><div class="product-price">$350.00</div></div>
+        <button class="product-buy" onclick="openModal('AirPods Pro 2da Generación', 350, 'airpods-2-pro-gen')">🛍️ Comprar</button>
+      </div>
+      <div class="product-card fade-up">
+        <div class="product-img"><img src="airpods-2-pro-gen" onerror="tryImage(this,'airpods-2-pro-gen')" alt="AirPods Pro"><div class="no-img" style="display:none">🎧</div></div>
+        <div class="product-info"><div class="product-cat">Electrónica</div><div class="product-name">AirPods Pro</div><div class="product-price">$380.00</div></div>
+        <button class="product-buy" onclick="openModal('AirPods Pro', 380, 'airpods-2-pro-gen')">🛍️ Comprar</button>
       </div>
 
     </div>
@@ -609,6 +634,7 @@
     clearErrors();
     let valid = true;
 
+    const ciudad     = document.getElementById('f-ciudad').value.trim();
     const nombre     = document.getElementById('f-nombre').value.trim();
     const direccion  = document.getElementById('f-direccion').value.trim();
     const referencias= document.getElementById('f-referencias').value.trim();
@@ -619,6 +645,7 @@
     if (!direccion)     { fieldError('f-direccion','e-direccion'); valid = false; }
     if (!referencias)   { fieldError('f-referencias','e-referencias'); valid = false; }
     if (!cantidad || cantidad < 1) { fieldError('f-cantidad','e-cantidad'); valid = false; }
+    if (!ciudad)        { fieldError('f-ciudad','e-ciudad'); valid = false; }
     if (!telefono)      { fieldError('f-telefono','e-telefono'); valid = false; }
 
     if (!valid) return;
@@ -642,6 +669,7 @@
           { name: '💳 Método de pago',     value: 'Efectivo',                         inline: true  },
           { name: '👤 Nombre',             value: nombre,                             inline: false },
           { name: '📞 Teléfono',           value: telefono,                           inline: true  },
+          { name: '🏙️ Ciudad',             value: ciudad,                             inline: true  },
           { name: '📍 Dirección',          value: direccion,                          inline: false },
           { name: '🏠 Referencias',        value: referencias,                        inline: false },
         ],

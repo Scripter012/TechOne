@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "nombre": "AirPods 4ta Generación",
+    "precio": 350,
+    "imagen": "airpods-4-gen",
+    "categoria": "Electrónica",
+    "stock": 2
+  },
+  {
+    "id": "2",
+    "nombre": "Cargador Lightning Con Cubo",
+    "precio": 220,
+    "imagen": "Cargador",
+    "categoria": "Electrónica",
+    "stock": 0
+  },
+  {
+    "id": "3",
+    "nombre": "AirPods Pro Max",
+    "precio": 400,
+    "imagen": "airpods-max",
+    "categoria": "Electrónica",
+    "stock": 0
+  },
+  {
+    "id": "4",
+    "nombre": "AirPods Pro 2da Generación",
+    "precio": 350,
+    "imagen": "airpods-2-pro-gen",
+    "categoria": "Electrónica",
+    "stock": 0
+  },
+  {
+    "id": "5",
+    "nombre": "AirPods Pro",
+    "precio": 380,
+    "imagen": "airpods-2-pro-gen",
+    "categoria": "Electrónica",
+    "stock": 0
+  }
+]
