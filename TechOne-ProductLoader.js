@@ -1,15 +1,17 @@
-<script>
 // ===== INICIO: TechOne Product Loader =====
 (function() {
   const PRODUCTOS_JSON = 'productos.json';
 
   async function cargarProductos() {
     try {
+      console.log('🔄 Cargando productos...');
       const resp = await fetch(PRODUCTOS_JSON);
       if (!resp.ok) throw new Error('No se pudo cargar');
-      return await resp.json();
+      const data = await resp.json();
+      console.log('✅ Productos cargados:', data);
+      return data;
     } catch (e) {
-      console.log('⚠️ No se pudo cargar productos.json, usando productos estáticos');
+      console.error('❌ Error cargando productos:', e);
       return null;
     }
   }
@@ -29,19 +31,33 @@
   }
 
   async function init() {
-    const productos = await cargarProductos();
-    if (!productos || productos.length === 0) return;
+    console.log('🚀 Iniciando Product Loader...');
 
     const grid = document.querySelector('.products-grid');
-    if (!grid) return;
+    console.log('📦 Grid encontrado:', grid);
+
+    if (!grid) {
+      console.error('❌ No se encontró .products-grid');
+      return;
+    }
+
+    const productos = await cargarProductos();
+    if (!productos || productos.length === 0) {
+      console.log('⚠️ No hay productos para mostrar');
+      return;
+    }
 
     // Limpiar grid existente
     grid.innerHTML = '';
+    console.log('🧹 Grid limpiado');
 
     // Agregar productos del JSON
     productos.forEach(p => {
       grid.insertAdjacentHTML('beforeend', crearProductCard(p));
+      console.log('➕ Producto agregado:', p.nombre);
     });
+
+    console.log('✅ Total productos agregados:', productos.length);
   }
 
   // Ejecutar cuando el DOM esté listo
@@ -52,4 +68,3 @@
   }
 })();
 // ===== FIN: TechOne Product Loader =====
-</script>
