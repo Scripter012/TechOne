@@ -5,7 +5,7 @@
     "precio": 350,
     "imagen": "airpods-4-gen",
     "categoria": "Electrónica",
-    "stock": 2
+    "stock": 10
   },
   {
     "id": "2",
@@ -38,5 +38,13 @@
     "imagen": "airpods-2-pro-gen",
     "categoria": "Electrónica",
     "stock": 0
+  },
+  {
+    "id": "1779583749437",
+    "nombre": "Nuevo Producto",
+    "precio": 299,
+    "imagen": "mi-imagen",
+    "categoria": "Electrónica",
+    "stock": 1
   }
 ]
